@@ -121,7 +121,7 @@ fn slatepack_exchange_test_impl(
 	});
 
 	// few values to keep things shorter
-	let reward = core::consensus::REWARD;
+	let reward = core::consensus::REWARD1;
 
 	// add some accounts
 	wallet::controller::owner_single_use(Some(wallet1.clone()), mask1, None, |api, m| {
@@ -474,7 +474,7 @@ fn slatepack_api_impl(test_dir: &'static str) -> Result<(), libwallet::Error> {
 	});
 
 	// few values to keep things shorter
-	let reward = core::consensus::REWARD;
+	let reward = core::consensus::REWARD1;
 
 	// Get some mining done
 	let bh = 6u64;

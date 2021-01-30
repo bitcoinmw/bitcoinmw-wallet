@@ -116,7 +116,7 @@ fn revert(
 		Ok(())
 	})?;
 
-	let reward = core::consensus::REWARD;
+	let reward = core::consensus::REWARD1;
 	let cm = global::coinbase_maturity() as u64;
 	let sent = reward * 2;
 
