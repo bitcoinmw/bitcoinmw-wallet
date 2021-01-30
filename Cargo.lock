@@ -1279,7 +1279,6 @@ checksum = "9b919933a397b79c37e33b77bb2aa3dc8eb6e165ad809e58ff75bc7db2e34574"
 [[package]]
 name = "grin_api"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#2c9d0807c3b10e62c468f15f13554a1dc366b4ca"
 dependencies = [
  "bytes 0.5.6",
  "easy-jsonrpc-mw",
@@ -1312,7 +1311,6 @@ dependencies = [
 [[package]]
 name = "grin_chain"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#2c9d0807c3b10e62c468f15f13554a1dc366b4ca"
 dependencies = [
  "bit-vec",
  "bitflags 1.2.1",
@@ -1336,7 +1334,6 @@ dependencies = [
 [[package]]
 name = "grin_core"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#2c9d0807c3b10e62c468f15f13554a1dc366b4ca"
 dependencies = [
  "blake2-rfc",
  "byteorder",
@@ -1363,7 +1360,6 @@ dependencies = [
 [[package]]
 name = "grin_keychain"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#2c9d0807c3b10e62c468f15f13554a1dc366b4ca"
 dependencies = [
  "blake2-rfc",
  "byteorder",
@@ -1385,7 +1381,6 @@ dependencies = [
 [[package]]
 name = "grin_p2p"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#2c9d0807c3b10e62c468f15f13554a1dc366b4ca"
 dependencies = [
  "bitflags 1.2.1",
  "bytes 0.5.6",
@@ -1407,7 +1402,6 @@ dependencies = [
 [[package]]
 name = "grin_pool"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#2c9d0807c3b10e62c468f15f13554a1dc366b4ca"
 dependencies = [
  "blake2-rfc",
  "chrono",
@@ -1441,7 +1435,6 @@ dependencies = [
 [[package]]
 name = "grin_store"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#2c9d0807c3b10e62c468f15f13554a1dc366b4ca"
 dependencies = [
  "byteorder",
  "croaring-mw",
@@ -1461,7 +1454,6 @@ dependencies = [
 [[package]]
 name = "grin_util"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#2c9d0807c3b10e62c468f15f13554a1dc366b4ca"
 dependencies = [
  "backtrace",
  "base64 0.12.3",
