@@ -278,12 +278,9 @@ where
 	pub fn build_coinbase(&self, block_fees: &BlockFees) -> Result<CbData, Error> {
 		let mut w_lock = self.wallet_inst.lock();
 		let w = w_lock.lc_provider()?.wallet_inst()?;
+
 		if let Some(m) = self.middleware.as_ref() {
-			m(
-				ForeignCheckMiddlewareFn::BuildCoinbase,
-				w.w2n_client().get_version_info(),
-				None,
-			)?;
+			m(ForeignCheckMiddlewareFn::BuildCoinbase, None, None)?;
 		}
 		foreign::build_coinbase(
 			&mut **w,
