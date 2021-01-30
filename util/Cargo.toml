@@ -11,8 +11,8 @@ edition = "2018"
 
 [dependencies]
 rand = "0.6"
-serde = "1"
-serde_derive = "1"
+serde = "1.0.111"
+serde_derive = "1.0.111"
 ed25519-dalek = "1.0.0-pre.4"
 data-encoding = "2"
 sha3 = "0.8"
