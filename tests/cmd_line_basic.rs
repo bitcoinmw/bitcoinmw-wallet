@@ -183,7 +183,7 @@ fn command_line_test_impl(test_dir: &str) -> Result<(), grin_wallet_controller::
 		"-a",
 		"mining",
 		"send",
-		"10",
+		"0.01",
 	];
 	execute_command(&app, test_dir, "wallet1", &client1, arg_vec)?;
 	let arg_vec = vec!["grin-wallet", "-a", "mining", "-p", "password1", "txs"];
@@ -276,7 +276,7 @@ fn command_line_test_impl(test_dir: &str) -> Result<(), grin_wallet_controller::
 			api.set_active_account(m, "account_1")?;
 			let (_, wallet1_info) = api.retrieve_summary_info(m, true, 1)?;
 			assert_eq!(wallet1_info.last_confirmed_height, bh);
-			assert_eq!(wallet1_info.amount_currently_spendable, 10_000_000_000);
+			assert_eq!(wallet1_info.amount_currently_spendable, 10_000_000);
 			Ok(())
 		},
 	)?;
@@ -303,7 +303,7 @@ fn command_line_test_impl(test_dir: &str) -> Result<(), grin_wallet_controller::
 		"send",
 		"-d",
 		"tgrin1ak8aaxpjg6ct5uje4lgzvjp65l0nrmgxndp5xjy74sumzp7wasysje3kmf",
-		"10",
+		"0.01",
 	];
 	execute_command(&app, test_dir, "wallet1", &client1, arg_vec)?;
 
@@ -376,7 +376,7 @@ fn command_line_test_impl(test_dir: &str) -> Result<(), grin_wallet_controller::
 		"3",
 		"-s",
 		"smallest",
-		"10",
+		"0.01",
 	];
 	execute_command(&app, test_dir, "wallet1", &client1, arg_vec)?;
 
@@ -445,7 +445,7 @@ fn command_line_test_impl(test_dir: &str) -> Result<(), grin_wallet_controller::
 		"-a",
 		"mining",
 		"send",
-		"10",
+		"0.01",
 	];
 	execute_command(&app, test_dir, "wallet1", &client1, arg_vec)?;
 
@@ -460,7 +460,7 @@ fn command_line_test_impl(test_dir: &str) -> Result<(), grin_wallet_controller::
 		"-a",
 		"mining",
 		"send",
-		"10",
+		"0.01",
 	];
 	execute_command(&app, test_dir, "wallet1", &client1, arg_vec)?;
 
@@ -480,7 +480,7 @@ fn command_line_test_impl(test_dir: &str) -> Result<(), grin_wallet_controller::
 	execute_command(&app, test_dir, "wallet1", &client1, arg_vec)?;
 
 	// issue an invoice tx, wallet 2
-	let arg_vec = vec!["grin-wallet", "-p", "password2", "invoice", "65"];
+	let arg_vec = vec!["grin-wallet", "-p", "password2", "invoice", "0.65"];
 	execute_command(&app, test_dir, "wallet2", &client2, arg_vec)?;
 	let file_name = format!(
 		"{}/wallet2/slatepack/0436430c-2b02-624c-2032-570501212b05.I1.slatepack",
