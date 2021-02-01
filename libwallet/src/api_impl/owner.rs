@@ -14,13 +14,23 @@
 
 //! Generic implementation of owner API functions
 
+use std::io::{self, Write};
 use uuid::Uuid;
 
 use crate::grin_core::consensus::YEAR_HEIGHT;
 use crate::grin_core::core::hash::Hashed;
+use crate::grin_core::core::transaction::Inputs::CommitOnly;
+use crate::grin_core::core::transaction::Weighting;
+use crate::grin_core::core::verifier_cache::LruVerifierCache;
 use crate::grin_core::core::Transaction;
+use crate::grin_core::core::TransactionBody;
+use crate::grin_core::libtx::reward;
+use crate::grin_core::libtx::ProofBuilder;
+use crate::grin_keychain::BlindingFactor;
+use crate::grin_util::secp;
 use crate::grin_util::secp::key::SecretKey;
 use crate::grin_util::Mutex;
+use crate::grin_util::RwLock;
 use crate::util::{OnionV3Address, OnionV3AddressError};
 
 use crate::api_impl::owner_updater::StatusMessage;
@@ -918,11 +928,19 @@ where
 }
 
 /// Claims BCMWs for a specified BTC address
-pub fn claim<'a, C>(client: &C, address: String, _fluff: bool) -> Result<(), Error>
+pub fn claim<'a, T: ?Sized, C, K>(
+	client: &C,
+	wallet: &mut T,
+	keychain_mask: Option<&SecretKey>,
+	address: String,
+	fluff: bool,
+) -> Result<(), Error>
 where
+	T: WalletBackend<'a, C, K>,
 	C: NodeClient + 'a,
+	K: Keychain + 'a,
 {
-	let status = client.get_btc_address_status(address);
+	let status = client.get_btc_address_status(address.clone());
 	let status = match status {
 		Ok(r) => r,
 		Err(e) => {
@@ -937,6 +955,51 @@ where
 	if !status.1 {
 		return Err(ErrorKind::BTCAddressAlreadyClaimed.into());
 	}
+
+	// Valid and unclaimed address, let's claim it...
+	let keychain = wallet.keychain(keychain_mask)?;
+	let key_id = keys::next_available_key(&mut *wallet, keychain_mask)?;
+	let fee = 1000_000;
+	let sig = secp::Signature::from_raw_data(&[0; 64]).unwrap();
+	let (out, kern) = reward::output_btc_claim(
+		&keychain,
+		&ProofBuilder::new(&keychain),
+		&key_id,
+		fee,
+		false,
+		100_000_000_000,
+		1,
+		sig,
+	)?;
+
+	let tx = Transaction {
+		offset: BlindingFactor::zero(),
+		body: TransactionBody {
+			inputs: CommitOnly(Vec::new()),
+			outputs: vec![out],
+			kernels: vec![kern],
+		},
+	};
+	println!("transaction = {:?}", tx);
+
+	let verifier_cache = Arc::new(RwLock::new(LruVerifierCache::new()));
+	let res = tx.validate(Weighting::AsTransaction, verifier_cache, 0);
+	println!("validate = {:?}", res);
+
+	let commit_str = "okok";
+	println!(
+		"Sign the following message with BTC key for address {}. Message = \"bmw-{}\"",
+		address, commit_str
+	);
+
+	print!("Signature: ");
+	io::stdout().flush()?;
+
+	let mut signature = String::new();
+	let stdin = io::stdin(); // We get `Stdin` here.
+	stdin.read_line(&mut signature)?;
+
+	println!("successfully read: {}", signature);
 
 	Ok(())
 }

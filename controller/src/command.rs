@@ -259,12 +259,9 @@ where
 	C: NodeClient + 'static,
 	K: keychain::Keychain + 'static,
 {
-	println!("in claim: {}", args.address);
-
 	let fluff = args.fluff;
 	controller::owner_single_use(None, keychain_mask, Some(owner_api), |api, m| {
 		api.claim(m, args.address, fluff)?;
-		println!("claim transaction");
 		return Ok(());
 	})?;
 

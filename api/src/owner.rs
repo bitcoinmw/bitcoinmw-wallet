@@ -1077,14 +1077,15 @@ where
 		address: String,
 		fluff: bool,
 	) -> Result<(), Error> {
+		let mut w_lock = self.wallet_inst.lock();
+		let w = w_lock.lc_provider()?.wallet_inst()?;
+
 		let client = {
-			let mut w_lock = self.wallet_inst.lock();
-			let w = w_lock.lc_provider()?.wallet_inst()?;
 			// Test keychain mask, to keep API consistent
 			let _ = w.keychain(keychain_mask)?;
 			w.w2n_client().clone()
 		};
-		owner::claim(&client, address, fluff)
+		owner::claim(&client, &mut **w, keychain_mask, address, fluff)
 	}
 
 	/// Cancels a transaction. This entails:
