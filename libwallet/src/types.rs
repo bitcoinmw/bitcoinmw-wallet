@@ -325,6 +325,9 @@ pub trait NodeClient: Send + Sync + Clone {
 	/// Posts a transaction to a grin node
 	fn post_tx(&self, tx: &Transaction, fluff: bool) -> Result<(), Error>;
 
+	/// get status of a btc address for claims
+	fn get_btc_address_status(&self, address: String) -> Result<(bool, bool), Error>;
+
 	/// Returns the api version string and block header version as reported
 	/// by the node. Result can be cached for later use
 	fn get_version_info(&mut self) -> Option<NodeVersionInfo>;

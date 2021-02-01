@@ -304,6 +304,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "349f9b6a179ed607305526ca489b34ad0a41aed5f7980fa90eb03160b69598fb"
 
 [[package]]
+name = "bitcoin_hashes"
+version = "0.9.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0aaf87b776808e26ae93289bc7d025092b6d909c193f0cdee0b3a86e7bd3c776"
+
+[[package]]
+name = "bitcoinmw_loader"
+version = "5.1.0-alpha.1"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#9fba09b6d6dd64577e8edd0eceaa7cf47b971a07"
+dependencies = [
+ "bech32",
+ "bitcoin_hashes",
+ "byteorder",
+ "log",
+ "rust-base58",
+]
+
+[[package]]
 name = "bitflags"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1279,8 +1297,9 @@ checksum = "9b919933a397b79c37e33b77bb2aa3dc8eb6e165ad809e58ff75bc7db2e34574"
 [[package]]
 name = "grin_api"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b931b8ae3a20a769b8430a17c5ae366202123ed3"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#9fba09b6d6dd64577e8edd0eceaa7cf47b971a07"
 dependencies = [
+ "bitcoinmw_loader",
  "bytes 0.5.6",
  "easy-jsonrpc-mw",
  "failure",
@@ -1312,7 +1331,7 @@ dependencies = [
 [[package]]
 name = "grin_chain"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b931b8ae3a20a769b8430a17c5ae366202123ed3"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#9fba09b6d6dd64577e8edd0eceaa7cf47b971a07"
 dependencies = [
  "bit-vec",
  "bitflags 1.2.1",
@@ -1336,7 +1355,7 @@ dependencies = [
 [[package]]
 name = "grin_core"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b931b8ae3a20a769b8430a17c5ae366202123ed3"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#9fba09b6d6dd64577e8edd0eceaa7cf47b971a07"
 dependencies = [
  "blake2-rfc",
  "byteorder",
@@ -1351,8 +1370,8 @@ dependencies = [
  "lazy_static",
  "log",
  "lru-cache",
- "num",
- "num-bigint",
+ "num 0.2.1",
+ "num-bigint 0.2.6",
  "rand 0.6.5",
  "serde",
  "serde_derive",
@@ -1363,7 +1382,7 @@ dependencies = [
 [[package]]
 name = "grin_keychain"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b931b8ae3a20a769b8430a17c5ae366202123ed3"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#9fba09b6d6dd64577e8edd0eceaa7cf47b971a07"
 dependencies = [
  "blake2-rfc",
  "byteorder",
@@ -1385,7 +1404,7 @@ dependencies = [
 [[package]]
 name = "grin_p2p"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b931b8ae3a20a769b8430a17c5ae366202123ed3"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#9fba09b6d6dd64577e8edd0eceaa7cf47b971a07"
 dependencies = [
  "bitflags 1.2.1",
  "bytes 0.5.6",
@@ -1397,7 +1416,7 @@ dependencies = [
  "grin_util",
  "log",
  "lru-cache",
- "num",
+ "num 0.2.1",
  "rand 0.6.5",
  "serde",
  "serde_derive",
@@ -1407,7 +1426,7 @@ dependencies = [
 [[package]]
 name = "grin_pool"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b931b8ae3a20a769b8430a17c5ae366202123ed3"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#9fba09b6d6dd64577e8edd0eceaa7cf47b971a07"
 dependencies = [
  "blake2-rfc",
  "chrono",
@@ -1441,7 +1460,7 @@ dependencies = [
 [[package]]
 name = "grin_store"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b931b8ae3a20a769b8430a17c5ae366202123ed3"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#9fba09b6d6dd64577e8edd0eceaa7cf47b971a07"
 dependencies = [
  "byteorder",
  "croaring-mw",
@@ -1461,7 +1480,7 @@ dependencies = [
 [[package]]
 name = "grin_util"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b931b8ae3a20a769b8430a17c5ae366202123ed3"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#9fba09b6d6dd64577e8edd0eceaa7cf47b971a07"
 dependencies = [
  "backtrace",
  "base64 0.12.3",
@@ -2321,11 +2340,25 @@ version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b8536030f9fea7127f841b45bb6243b27255787fb4eb83958aa1ef9d2fdc0c36"
 dependencies = [
- "num-bigint",
- "num-complex",
+ "num-bigint 0.2.6",
+ "num-complex 0.2.4",
  "num-integer",
  "num-iter",
- "num-rational",
+ "num-rational 0.2.4",
+ "num-traits 0.2.14",
+]
+
+[[package]]
+name = "num"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8b7a8e9be5e039e2ff869df49155f1c06bd01ade2117ec783e56ab0932b67a8f"
+dependencies = [
+ "num-bigint 0.3.1",
+ "num-complex 0.3.1",
+ "num-integer",
+ "num-iter",
+ "num-rational 0.3.2",
  "num-traits 0.2.14",
 ]
 
@@ -2341,12 +2374,32 @@ dependencies = [
 ]
 
 [[package]]
+name = "num-bigint"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5e9a41747ae4633fce5adffb4d2e81ffc5e89593cb19917f8fb2cc5ff76507bf"
+dependencies = [
+ "autocfg 1.0.1",
+ "num-integer",
+ "num-traits 0.2.14",
+]
+
+[[package]]
 name = "num-complex"
 version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b6b19411a9719e753aff12e5187b74d60d3dc449ec3f4dc21e3989c3f554bc95"
 dependencies = [
  "autocfg 1.0.1",
+ "num-traits 0.2.14",
+]
+
+[[package]]
+name = "num-complex"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "747d632c0c558b87dbabbe6a82f3b4ae03720d0646ac5b7b4dae89394be5f2c5"
+dependencies = [
  "num-traits 0.2.14",
 ]
 
@@ -2378,7 +2431,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5c000134b5dbf44adc5cb772486d335293351644b801551abe8f75c84cfa4aef"
 dependencies = [
  "autocfg 1.0.1",
- "num-bigint",
+ "num-bigint 0.2.6",
+ "num-integer",
+ "num-traits 0.2.14",
+]
+
+[[package]]
+name = "num-rational"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "12ac428b1cb17fce6f731001d307d351ec70a6d202fc2e60f7d4c5e42d8f4f07"
+dependencies = [
+ "autocfg 1.0.1",
+ "num-bigint 0.3.1",
  "num-integer",
  "num-traits 0.2.14",
 ]
@@ -3123,6 +3188,15 @@ dependencies = [
  "blake2b_simd",
  "constant_time_eq",
  "crossbeam-utils",
+]
+
+[[package]]
+name = "rust-base58"
+version = "0.0.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b313b91fcdc6719ad41fa2dad2b7e810b03833fae4bf911950e15529a5f04439"
+dependencies = [
+ "num 0.3.1",
 ]
 
 [[package]]

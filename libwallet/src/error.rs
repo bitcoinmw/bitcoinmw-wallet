@@ -54,6 +54,18 @@ pub enum ErrorKind {
 	#[fail(display = "Fee Error: {}", _0)]
 	Fee(String),
 
+	/// RPC Communication error. Node down?
+	#[fail(display = "RPC Comms Error: {}", _0)]
+	RPCCommunicationError(String),
+
+	/// BTC Address was already claimed
+	#[fail(display = "BTC Address already claimed")]
+	BTCAddressAlreadyClaimed,
+
+	/// BTC Address was invalid (not in snapshot)
+	#[fail(display = "BTC Address not found")]
+	BTCAddressInvalid,
+
 	/// LibTX Error
 	#[fail(display = "LibTx Error")]
 	LibTX(libtx::ErrorKind),

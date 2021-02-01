@@ -1056,6 +1056,37 @@ where
 		owner::post_tx(&client, slate.tx_or_err()?, fluff)
 	}
 
+	/// Claims BCMWs through an interactive process.
+	/// * First a request is made to the node to see if the specified address
+	/// * is both valid and unclaimed. If so, the user signs a message then
+	/// * a transaction is posted to claim the BCMWs.
+	///
+	/// # Arguments
+	///
+	/// * `keychain_mask` - Wallet secret mask to XOR against the stored wallet seed before using, if
+	/// being used.
+	/// * `address` - The BTC address to claim.
+	///
+	/// # Returns
+	/// * `Ok(())` if successful
+	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+
+	pub fn claim(
+		&self,
+		keychain_mask: Option<&SecretKey>,
+		address: String,
+		fluff: bool,
+	) -> Result<(), Error> {
+		let client = {
+			let mut w_lock = self.wallet_inst.lock();
+			let w = w_lock.lc_provider()?.wallet_inst()?;
+			// Test keychain mask, to keep API consistent
+			let _ = w.keychain(keychain_mask)?;
+			w.w2n_client().clone()
+		};
+		owner::claim(&client, address, fluff)
+	}
+
 	/// Cancels a transaction. This entails:
 	/// * Setting the transaction status to either `TxSentCancelled` or `TxReceivedCancelled`
 	/// * Deleting all change outputs or recipient outputs associated with the transaction

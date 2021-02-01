@@ -432,6 +432,11 @@ impl NodeClient for LocalWalletClient {
 	fn get_version_info(&mut self) -> Option<NodeVersionInfo> {
 		None
 	}
+
+	fn get_btc_address_status(&self, _: String) -> Result<(bool, bool), libwallet::Error> {
+		todo!()
+	}
+
 	/// Posts a transaction to a grin node
 	/// In this case it will create a new block with award rewarded to
 	fn post_tx(&self, tx: &Transaction, _fluff: bool) -> Result<(), libwallet::Error> {

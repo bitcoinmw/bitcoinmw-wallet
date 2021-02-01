@@ -14,7 +14,7 @@
 
 //! Client functions, implementations of the NodeClient trait
 
-use crate::api::{self, LocatedTxKernel, OutputListing, OutputPrintable};
+use crate::api::{self, AddressStatus, LocatedTxKernel, OutputListing, OutputPrintable};
 use crate::core::core::{Transaction, TxKernel};
 use crate::libwallet::{NodeClient, NodeVersionInfo};
 use futures::stream::FuturesUnordered;
@@ -142,6 +142,13 @@ impl NodeClient for HTTPNodeClient {
 	fn get_chain_tip(&self) -> Result<(u64, String), libwallet::Error> {
 		let result = self.send_json_request::<GetTipResp>("get_tip", &serde_json::Value::Null)?;
 		Ok((result.height, result.last_block_pushed))
+	}
+
+	/// Get BTC address status
+	fn get_btc_address_status(&self, address: String) -> Result<(bool, bool), libwallet::Error> {
+		let result =
+			self.send_json_request::<AddressStatus>("get_btc_address_status", &json!([address]))?;
+		Ok((result.unclaimed, result.valid))
 	}
 
 	/// Get kernel implementation

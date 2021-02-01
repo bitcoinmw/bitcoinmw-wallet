@@ -284,6 +284,16 @@ subcommands:
             help: Fluff the transaction (ignore Dandelion relay protocol)
             short: f
             long: fluff
+  - claim:
+      about: Claim BCMWs from BTC snapshot
+      args:
+        - address:
+           help: BTC Address to claim
+           index: 1
+        - fluff:
+           help: Fluff the transaction (ignore Dandelion relay protocol)
+           short: f
+           long: fluff
   - repost:
       about: Reposts a stored, completed but unconfirmed transaction to the chain, or dumps it to a file
       args:

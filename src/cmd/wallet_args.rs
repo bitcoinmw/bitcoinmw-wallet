@@ -786,6 +786,13 @@ pub fn parse_txs_args(args: &ArgMatches) -> Result<command::TxsArgs, ParseError>
 	})
 }
 
+pub fn parse_claim_args(args: &ArgMatches) -> Result<command::ClaimArgs, ParseError> {
+	let address = parse_required(args, "address")?.to_string();
+	let fluff = args.is_present("fluff");
+
+	Ok(command::ClaimArgs { address, fluff })
+}
+
 pub fn parse_post_args(args: &ArgMatches) -> Result<command::PostArgs, ParseError> {
 	let fluff = args.is_present("fluff");
 
@@ -1117,6 +1124,10 @@ where
 		("account", Some(args)) => {
 			let a = arg_parse!(parse_account_args(&args));
 			command::account(owner_api, km, a)
+		}
+		("claim", Some(args)) => {
+			let a = arg_parse!(parse_claim_args(&args));
+			command::claim(owner_api, km, a)
 		}
 		("send", Some(args)) => {
 			let a = arg_parse!(parse_send_args(&args));

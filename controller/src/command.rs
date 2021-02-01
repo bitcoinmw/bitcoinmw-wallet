@@ -243,6 +243,34 @@ where
 	Ok(())
 }
 
+/// Arguments for the claim command
+pub struct ClaimArgs {
+	pub fluff: bool,
+	pub address: String,
+}
+
+pub fn claim<L, C, K>(
+	owner_api: &mut Owner<L, C, K>,
+	keychain_mask: Option<&SecretKey>,
+	args: ClaimArgs,
+) -> Result<(), Error>
+where
+	L: WalletLCProvider<'static, C, K> + 'static,
+	C: NodeClient + 'static,
+	K: keychain::Keychain + 'static,
+{
+	println!("in claim: {}", args.address);
+
+	let fluff = args.fluff;
+	controller::owner_single_use(None, keychain_mask, Some(owner_api), |api, m| {
+		api.claim(m, args.address, fluff)?;
+		println!("claim transaction");
+		return Ok(());
+	})?;
+
+	Ok(())
+}
+
 /// Arguments for the send command
 #[derive(Clone)]
 pub struct SendArgs {

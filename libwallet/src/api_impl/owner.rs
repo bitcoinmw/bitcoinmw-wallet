@@ -917,6 +917,30 @@ where
 	}
 }
 
+/// Claims BCMWs for a specified BTC address
+pub fn claim<'a, C>(client: &C, address: String, _fluff: bool) -> Result<(), Error>
+where
+	C: NodeClient + 'a,
+{
+	let status = client.get_btc_address_status(address);
+	let status = match status {
+		Ok(r) => r,
+		Err(e) => {
+			return Err(ErrorKind::RPCCommunicationError(format!("{}", e)).into());
+		}
+	};
+
+	if !status.0 {
+		return Err(ErrorKind::BTCAddressInvalid.into());
+	}
+
+	if !status.1 {
+		return Err(ErrorKind::BTCAddressAlreadyClaimed.into());
+	}
+
+	Ok(())
+}
+
 /// Posts a transaction to the chain
 /// take a client impl instead of wallet so as not to have to lock the wallet
 pub fn post_tx<'a, C>(client: &C, tx: &Transaction, fluff: bool) -> Result<(), Error>
