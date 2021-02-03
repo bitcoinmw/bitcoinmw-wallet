@@ -333,7 +333,7 @@ checksum = "0aaf87b776808e26ae93289bc7d025092b6d909c193f0cdee0b3a86e7bd3c776"
 [[package]]
 name = "bitcoinmw_loader"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#aaa64ec141e04a08040e94cd06cda3d0d59f5dad"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#08e48f74c5995512c548087e837868baca73f1c4"
 dependencies = [
  "bech32",
  "bitcoin_hashes",
@@ -1318,7 +1318,7 @@ checksum = "9b919933a397b79c37e33b77bb2aa3dc8eb6e165ad809e58ff75bc7db2e34574"
 [[package]]
 name = "grin_api"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#aaa64ec141e04a08040e94cd06cda3d0d59f5dad"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#08e48f74c5995512c548087e837868baca73f1c4"
 dependencies = [
  "bitcoinmw_loader",
  "bytes 0.5.6",
@@ -1352,7 +1352,7 @@ dependencies = [
 [[package]]
 name = "grin_chain"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#aaa64ec141e04a08040e94cd06cda3d0d59f5dad"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#08e48f74c5995512c548087e837868baca73f1c4"
 dependencies = [
  "bit-vec",
  "bitflags 1.2.1",
@@ -1376,7 +1376,7 @@ dependencies = [
 [[package]]
 name = "grin_core"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#aaa64ec141e04a08040e94cd06cda3d0d59f5dad"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#08e48f74c5995512c548087e837868baca73f1c4"
 dependencies = [
  "bitcoin 0.26.0 (git+https://github.com/bitcoinmw/rust-bitcoin)",
  "blake2-rfc",
@@ -1404,7 +1404,7 @@ dependencies = [
 [[package]]
 name = "grin_keychain"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#aaa64ec141e04a08040e94cd06cda3d0d59f5dad"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#08e48f74c5995512c548087e837868baca73f1c4"
 dependencies = [
  "blake2-rfc",
  "byteorder",
@@ -1426,7 +1426,7 @@ dependencies = [
 [[package]]
 name = "grin_p2p"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#aaa64ec141e04a08040e94cd06cda3d0d59f5dad"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#08e48f74c5995512c548087e837868baca73f1c4"
 dependencies = [
  "bitflags 1.2.1",
  "bytes 0.5.6",
@@ -1448,7 +1448,7 @@ dependencies = [
 [[package]]
 name = "grin_pool"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#aaa64ec141e04a08040e94cd06cda3d0d59f5dad"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#08e48f74c5995512c548087e837868baca73f1c4"
 dependencies = [
  "blake2-rfc",
  "chrono",
@@ -1481,7 +1481,7 @@ dependencies = [
 [[package]]
 name = "grin_store"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#aaa64ec141e04a08040e94cd06cda3d0d59f5dad"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#08e48f74c5995512c548087e837868baca73f1c4"
 dependencies = [
  "byteorder",
  "croaring-mw",
@@ -1501,7 +1501,7 @@ dependencies = [
 [[package]]
 name = "grin_util"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#aaa64ec141e04a08040e94cd06cda3d0d59f5dad"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#08e48f74c5995512c548087e837868baca73f1c4"
 dependencies = [
  "backtrace",
  "base64 0.12.3",
@@ -1835,7 +1835,7 @@ dependencies = [
  "httparse",
  "httpdate",
  "itoa",
- "pin-project 1.0.4",
+ "pin-project 1.0.5",
  "socket2",
  "tokio",
  "tower-service",
@@ -2692,11 +2692,11 @@ dependencies = [
 
 [[package]]
 name = "pin-project"
-version = "1.0.4"
+version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "95b70b68509f17aa2857863b6fa00bf21fc93674c7a8893de2f469f6aa7ca2f2"
+checksum = "96fa8ebb90271c4477f144354485b8068bd8f6b78b428b01ba892ca26caf0b63"
 dependencies = [
- "pin-project-internal 1.0.4",
+ "pin-project-internal 1.0.5",
 ]
 
 [[package]]
@@ -2712,9 +2712,9 @@ dependencies = [
 
 [[package]]
 name = "pin-project-internal"
-version = "1.0.4"
+version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "caa25a6393f22ce819b0f50e0be89287292fda8d425be38ee0ca14c4931d9e71"
+checksum = "758669ae3558c6f74bd2a18b41f7ac0b5a195aea6639d6a9b5e5d1ad5ba24c0b"
 dependencies = [
  "proc-macro2 1.0.24",
  "quote 1.0.8",

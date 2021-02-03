@@ -433,7 +433,7 @@ impl NodeClient for LocalWalletClient {
 		None
 	}
 
-	fn get_btc_address_status(&self, _: String) -> Result<(bool, bool), libwallet::Error> {
+	fn get_btc_address_status(&self, _: String) -> Result<(bool, bool, u64), libwallet::Error> {
 		todo!()
 	}
 

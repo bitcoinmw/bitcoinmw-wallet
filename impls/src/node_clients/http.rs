@@ -145,10 +145,13 @@ impl NodeClient for HTTPNodeClient {
 	}
 
 	/// Get BTC address status
-	fn get_btc_address_status(&self, address: String) -> Result<(bool, bool), libwallet::Error> {
+	fn get_btc_address_status(
+		&self,
+		address: String,
+	) -> Result<(bool, bool, u64), libwallet::Error> {
 		let result =
 			self.send_json_request::<AddressStatus>("get_btc_address_status", &json!([address]))?;
-		Ok((result.unclaimed, result.valid))
+		Ok((result.unclaimed, result.valid, result.sats))
 	}
 
 	/// Get kernel implementation

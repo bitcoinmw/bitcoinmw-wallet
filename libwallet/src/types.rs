@@ -326,7 +326,7 @@ pub trait NodeClient: Send + Sync + Clone {
 	fn post_tx(&self, tx: &Transaction, fluff: bool) -> Result<(), Error>;
 
 	/// get status of a btc address for claims
-	fn get_btc_address_status(&self, address: String) -> Result<(bool, bool), Error>;
+	fn get_btc_address_status(&self, address: String) -> Result<(bool, bool, u64), Error>;
 
 	/// Returns the api version string and block header version as reported
 	/// by the node. Result can be cached for later use

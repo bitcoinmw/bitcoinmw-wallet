@@ -20,6 +20,7 @@ use bitcoin::util::misc;
 use std::io::{self, Write};
 use uuid::Uuid;
 
+use crate::grin_core::libtx::tx_fee;
 use bitcoin::secp256k1::recovery::{RecoverableSignature, RecoveryId};
 use bitcoin::secp256k1::{Message, Secp256k1};
 use bitcoin::Address;
@@ -941,7 +942,7 @@ pub fn claim<'a, T: ?Sized, C, K>(
 	wallet: &mut T,
 	keychain_mask: Option<&SecretKey>,
 	address: String,
-	_fluff: bool,
+	fluff: bool,
 ) -> Result<(), Error>
 where
 	T: WalletBackend<'a, C, K>,
@@ -967,8 +968,8 @@ where
 	// Valid and unclaimed address, let's claim it...
 	let keychain = wallet.keychain(keychain_mask)?;
 	let key_id = keys::next_available_key(&mut *wallet, keychain_mask)?;
-	let value = 100_000_000_000;
-	let fee = 10_000_000;
+	let value = status.2 * 10; // 1 sat = 10 nanoBMWs
+	let fee = tx_fee(0, 1, 1);
 	let data = [0 as u8; 64];
 	let sig = RecoverableSignature::from_compact(&data, RecoveryId::from_i32(0).unwrap()).unwrap();
 
@@ -999,6 +1000,10 @@ where
 	let excess = excess.replace("Commitment(", "");
 	let excess = excess.replace(")", "");
 	let challenge_str = format!("bmw{}", excess);
+	println!(
+		"Claim for BTC address '{}' is available. Amount = {} nanoBMWs",
+		address, value
+	);
 	println!(
 		"Sign the following message with BTC key for address {}.",
 		address
@@ -1047,6 +1052,8 @@ where
 		}
 		_ => return Err(ErrorKind::BTCSignatureInvalid.into()),
 	};
+
+	post_tx(client, &tx, fluff)?;
 
 	Ok(())
 }
