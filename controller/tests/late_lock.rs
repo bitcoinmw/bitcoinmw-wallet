@@ -92,7 +92,7 @@ fn late_lock_test_impl(test_dir: &'static str) -> Result<(), libwallet::Error> {
 	test_framework::award_blocks_to_wallet(&chain, wallet1.clone(), mask1, 10, false)?;
 
 	let mut slate = Slate::blank(2, false);
-	let amount = 100_000_000_000;
+	let amount = 1_000_000_000;
 
 	wallet::controller::owner_single_use(Some(wallet1.clone()), mask1, None, |sender_api, m| {
 		let args = InitTxArgs {
@@ -130,7 +130,7 @@ fn late_lock_test_impl(test_dir: &'static str) -> Result<(), libwallet::Error> {
 		assert!(wallet1_refreshed);
 		// Reward from mining 11 blocks, minus the amount sent.
 		// Note: We mined the block containing the tx, so fees are effectively refunded.
-		assert_eq!(560_000_000_000, wallet_info.amount_currently_spendable);
+		assert_eq!(2437500000, wallet_info.amount_currently_spendable);
 		Ok(())
 	})?;
 

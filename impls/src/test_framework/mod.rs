@@ -239,7 +239,7 @@ where
 		let args = InitTxArgs {
 			src_acct_name: None,
 			amount,
-			minimum_confirmations: 2,
+			minimum_confirmations: 1,
 			max_outputs: 500,
 			num_change_outputs: 1,
 			selection_strategy_is_use_all: true,

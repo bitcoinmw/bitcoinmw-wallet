@@ -97,7 +97,7 @@ fn basic_transaction_api(test_dir: &'static str) -> Result<(), libwallet::Error>
 
 	// assert wallet contents
 	// and a single use api for a send command
-	let amount = 60_000_000_000;
+	let amount = 312_500_000;
 	let mut slate = Slate::blank(1, false);
 	wallet::controller::owner_single_use(Some(wallet1.clone()), mask1, None, |sender_api, m| {
 		// note this will increment the block count as part of the transaction "Posting"
@@ -135,7 +135,7 @@ fn basic_transaction_api(test_dir: &'static str) -> Result<(), libwallet::Error>
 				.map(|k| k.features)
 				.unwrap(),
 			transaction::KernelFeatures::Plain {
-				fee: 26_000_000.into()
+				fee: 8_580_000.into()
 			}
 		);
 
@@ -200,6 +200,10 @@ fn basic_transaction_api(test_dir: &'static str) -> Result<(), libwallet::Error>
 		);
 		assert!(wallet1_refreshed);
 		// wallet 1 received fees, so amount should be the same
+		/*
+		  left: `3112500000`,
+		 right: `3250000000`', controller/tests/transaction.rs:204:9
+		*/
 		assert_eq!(
 			wallet1_info.total,
 			amount * wallet1_info.last_confirmed_height - amount
@@ -270,9 +274,9 @@ fn basic_transaction_api(test_dir: &'static str) -> Result<(), libwallet::Error>
 			..Default::default()
 		};
 		let est = sender_api.init_send_tx(m, init_args)?;
-		assert_eq!(est.amount, 600_000_000_000);
+		assert_eq!(est.amount, 3_125_000_000);
 		// fees for 5 inputs, 2 outputs, 1 kernel (weight 50)
-		assert_eq!(est.fee_fields.fee(0), 25_000_000);
+		assert_eq!(est.fee_fields.fee(0), 8_250_000);
 
 		let init_args = InitTxArgs {
 			src_acct_name: None,
@@ -285,9 +289,9 @@ fn basic_transaction_api(test_dir: &'static str) -> Result<(), libwallet::Error>
 			..Default::default()
 		};
 		let est = sender_api.init_send_tx(m, init_args)?;
-		assert_eq!(est.amount, 180_000_000_000);
+		assert_eq!(est.amount, 937_500_000);
 		// fees for 3 inputs, 2 outputs, 1 kernel (weight 48)
-		assert_eq!(est.fee_fields.fee(0), 24_000_000);
+		assert_eq!(est.fee_fields.fee(0), 7_920_000);
 
 		Ok(())
 	})?;
@@ -404,7 +408,7 @@ fn tx_rollback(test_dir: &'static str) -> Result<(), libwallet::Error> {
 									  // mine a few blocks
 	let _ = test_framework::award_blocks_to_wallet(&chain, wallet1.clone(), mask1, 5, false);
 
-	let amount = 30_000_000_000;
+	let amount = 156_250_000;
 	let mut slate = Slate::blank(1, false);
 	wallet::controller::owner_single_use(Some(wallet1.clone()), mask1, None, |sender_api, m| {
 		// note this will increment the block count as part of the transaction "Posting"

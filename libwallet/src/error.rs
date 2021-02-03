@@ -66,6 +66,10 @@ pub enum ErrorKind {
 	#[fail(display = "BTC Address not found")]
 	BTCAddressInvalid,
 
+	/// Signature not valid
+	#[fail(display = "Signature was not valid")]
+	BTCSignatureInvalid,
+
 	/// LibTX Error
 	#[fail(display = "LibTx Error")]
 	LibTX(libtx::ErrorKind),

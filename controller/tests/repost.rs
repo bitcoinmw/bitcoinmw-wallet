@@ -199,7 +199,7 @@ fn file_repost_test_impl(test_dir: &'static str) -> Result<(), libwallet::Error>
 	}
 
 	let mut slate = Slate::blank(2, false);
-	let amount = 60_000_000_000;
+	let amount = 312_500_000;
 
 	wallet::controller::owner_single_use(Some(wallet1.clone()), mask1, None, |sender_api, m| {
 		// note this will increment the block count as part of the transaction "Posting"

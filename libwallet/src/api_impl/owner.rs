@@ -14,12 +14,21 @@
 
 //! Generic implementation of owner API functions
 
+use base64::decode;
+use bitcoin::util::key::PublicKey as BitcoinPublicKey;
+use bitcoin::util::misc;
 use std::io::{self, Write};
 use uuid::Uuid;
 
+use bitcoin::secp256k1::recovery::{RecoverableSignature, RecoveryId};
+use bitcoin::secp256k1::{Message, Secp256k1};
+use bitcoin::Address;
+
 use crate::grin_core::consensus::YEAR_HEIGHT;
 use crate::grin_core::core::hash::Hashed;
+use crate::grin_core::core::transaction::build_btc_init_kernel_feature;
 use crate::grin_core::core::transaction::Inputs::CommitOnly;
+use crate::grin_core::core::transaction::KernelFeatures;
 use crate::grin_core::core::transaction::Weighting;
 use crate::grin_core::core::verifier_cache::LruVerifierCache;
 use crate::grin_core::core::Transaction;
@@ -27,7 +36,6 @@ use crate::grin_core::core::TransactionBody;
 use crate::grin_core::libtx::reward;
 use crate::grin_core::libtx::ProofBuilder;
 use crate::grin_keychain::BlindingFactor;
-use crate::grin_util::secp;
 use crate::grin_util::secp::key::SecretKey;
 use crate::grin_util::Mutex;
 use crate::grin_util::RwLock;
@@ -933,7 +941,7 @@ pub fn claim<'a, T: ?Sized, C, K>(
 	wallet: &mut T,
 	keychain_mask: Option<&SecretKey>,
 	address: String,
-	fluff: bool,
+	_fluff: bool,
 ) -> Result<(), Error>
 where
 	T: WalletBackend<'a, C, K>,
@@ -959,20 +967,23 @@ where
 	// Valid and unclaimed address, let's claim it...
 	let keychain = wallet.keychain(keychain_mask)?;
 	let key_id = keys::next_available_key(&mut *wallet, keychain_mask)?;
-	let fee = 1000_000;
-	let sig = secp::Signature::from_raw_data(&[0; 64]).unwrap();
+	let value = 100_000_000_000;
+	let fee = 10_000_000;
+	let data = [0 as u8; 64];
+	let sig = RecoverableSignature::from_compact(&data, RecoveryId::from_i32(0).unwrap()).unwrap();
+
 	let (out, kern) = reward::output_btc_claim(
 		&keychain,
 		&ProofBuilder::new(&keychain),
 		&key_id,
 		fee,
 		false,
-		100_000_000_000,
+		value,
 		1,
 		sig,
 	)?;
 
-	let tx = Transaction {
+	let mut tx = Transaction {
 		offset: BlindingFactor::zero(),
 		body: TransactionBody {
 			inputs: CommitOnly(Vec::new()),
@@ -980,16 +991,21 @@ where
 			kernels: vec![kern],
 		},
 	};
-	println!("transaction = {:?}", tx);
 
 	let verifier_cache = Arc::new(RwLock::new(LruVerifierCache::new()));
-	let res = tx.validate(Weighting::AsTransaction, verifier_cache, 0);
-	println!("validate = {:?}", res);
+	tx.validate(Weighting::AsTransaction, verifier_cache, 0)?;
 
-	let commit_str = "okok";
+	let excess = format!("{:?}", tx.body.kernels[0].excess);
+	let excess = excess.replace("Commitment(", "");
+	let excess = excess.replace(")", "");
+	let challenge_str = format!("bmw{}", excess);
 	println!(
-		"Sign the following message with BTC key for address {}. Message = \"bmw-{}\"",
-		address, commit_str
+		"Sign the following message with BTC key for address {}.",
+		address
+	);
+	println!(
+		"-----Begin Message-----\n\n{}\n\n------End Message------",
+		challenge_str
 	);
 
 	print!("Signature: ");
@@ -998,8 +1014,39 @@ where
 	let mut signature = String::new();
 	let stdin = io::stdin(); // We get `Stdin` here.
 	stdin.read_line(&mut signature)?;
+	let signature = signature.replace("\n", "");
 
-	println!("successfully read: {}", signature);
+	let secp = Secp256k1::verification_only();
+
+	let signature = decode(&signature).unwrap();
+	let recid = RecoveryId::from_i32(i32::from((signature[0] - 27) & 3)).unwrap();
+	let recsig = RecoverableSignature::from_compact(&signature[1..], recid).unwrap();
+	let hash = misc::signed_msg_hash(&challenge_str);
+	let msg = Message::from_slice(&hash[..]).unwrap();
+	let key = secp.recover(&msg, &recsig).unwrap();
+	let pubkey = BitcoinPublicKey {
+		key: key,
+		compressed: ((signature[0] - 27) & 4) != 0,
+	};
+	let address_rec = Address::p2pkh(&pubkey, bitcoin::network::constants::Network::Bitcoin);
+
+	// TODO: for now only support one kind. Add others.
+	if format!("{}", address_rec) != address {
+		return Err(ErrorKind::BTCSignatureInvalid.into());
+	}
+
+	tx.body.kernels[0].features = match tx.body.kernels[0].features {
+		KernelFeatures::BitcoinInit {
+			fee, index, amount, ..
+		} => {
+			let btc_sig = recsig;
+			match build_btc_init_kernel_feature(fee, index, amount, btc_sig) {
+				Ok(kf) => kf,
+				Err(_e) => return Err(ErrorKind::BTCSignatureInvalid.into()),
+			}
+		}
+		_ => return Err(ErrorKind::BTCSignatureInvalid.into()),
+	};
 
 	Ok(())
 }

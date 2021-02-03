@@ -30,6 +30,8 @@ use grin_wallet_util::grin_util;
 
 use grin_wallet_util as util;
 
+extern crate secp256k1;
+
 use blake2_rfc as blake2;
 
 use failure;

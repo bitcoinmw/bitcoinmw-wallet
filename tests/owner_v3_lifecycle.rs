@@ -362,7 +362,7 @@ fn owner_v3_lifecycle() -> Result<(), grin_wallet_controller::Error> {
 		"params": {
 			"token": token,
 			"args": {
-				"amount": "6000000000",
+				"amount": "600000000",
 				"message": "geez a block of grins",
 				"dest_acct_name": null,
 				"target_slate_version": null
@@ -396,6 +396,7 @@ fn owner_v3_lifecycle() -> Result<(), grin_wallet_controller::Error> {
 				..Default::default()
 			};
 			let res = api.process_invoice_tx(m, &slate, args);
+			println!("error = {:?}", res);
 			assert!(res.is_ok());
 			slate = res.unwrap();
 			api.tx_lock_outputs(m, &slate)?;
@@ -497,7 +498,7 @@ fn owner_v3_lifecycle() -> Result<(), grin_wallet_controller::Error> {
 	println!("RES 20: {:?}", res);
 
 	thread::sleep(Duration::from_millis(200));
-	assert_eq!(res.unwrap().1.amount_awaiting_finalization, 6000000000);
+	assert_eq!(res.unwrap().1.amount_awaiting_finalization, 600000000);
 
 	// 21) Start the automatic updater, let it run for a bit
 	let req = serde_json::json!({
