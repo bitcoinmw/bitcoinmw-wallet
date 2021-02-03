@@ -468,7 +468,7 @@ pub fn run_doctest_foreign(
 	}
 
 	if init_invoice_tx {
-		let amount = 60_000_000_000;
+		let amount = 312_500_000;
 		let mut slate = {
 			let mut w_lock = wallet2.lock();
 			let w = w_lock.lc_provider().unwrap().wallet_inst().unwrap();
@@ -484,10 +484,10 @@ pub fn run_doctest_foreign(
 			let args = InitTxArgs {
 				src_acct_name: None,
 				amount: slate.amount,
-				minimum_confirmations: 2,
+				minimum_confirmations: 1,
 				max_outputs: 500,
 				num_change_outputs: 1,
-				selection_strategy_is_use_all: true,
+				selection_strategy_is_use_all: false,
 				..Default::default()
 			};
 			api_impl::owner::process_invoice_tx(&mut **w, (&mask1).as_ref(), &slate, args, true)
@@ -499,16 +499,16 @@ pub fn run_doctest_foreign(
 	}
 
 	if init_tx {
-		let amount = 60_000_000_000;
+		let amount = 312_500_000;
 		let mut w_lock = wallet1.lock();
 		let w = w_lock.lc_provider().unwrap().wallet_inst().unwrap();
 		let args = InitTxArgs {
 			src_acct_name: None,
 			amount,
-			minimum_confirmations: 2,
+			minimum_confirmations: 1,
 			max_outputs: 500,
 			num_change_outputs: 1,
-			selection_strategy_is_use_all: true,
+			selection_strategy_is_use_all: false,
 			..Default::default()
 		};
 		let slate = api_impl::owner::init_send_tx(&mut **w, (&mask1).as_ref(), args, true).unwrap();
