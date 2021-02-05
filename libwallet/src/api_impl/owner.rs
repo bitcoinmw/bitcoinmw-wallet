@@ -969,6 +969,7 @@ where
 	let keychain = wallet.keychain(keychain_mask)?;
 	let key_id = keys::next_available_key(&mut *wallet, keychain_mask)?;
 	let value = status.2 * 10; // 1 sat = 10 nanoBMWs
+	let index = status.3;
 	let fee = tx_fee(0, 1, 1);
 	let data = [0 as u8; 64];
 	let sig = RecoverableSignature::from_compact(&data, RecoveryId::from_i32(0).unwrap()).unwrap();
@@ -980,7 +981,7 @@ where
 		fee,
 		false,
 		value,
-		1,
+		index,
 		sig,
 	)?;
 

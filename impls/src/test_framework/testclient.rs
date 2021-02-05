@@ -104,6 +104,7 @@ where
 			pow::verify_size,
 			verifier_cache,
 			false,
+			None,
 		)
 		.unwrap();
 		let (tx, rx) = channel();
@@ -433,7 +434,10 @@ impl NodeClient for LocalWalletClient {
 		None
 	}
 
-	fn get_btc_address_status(&self, _: String) -> Result<(bool, bool, u64), libwallet::Error> {
+	fn get_btc_address_status(
+		&self,
+		_: String,
+	) -> Result<(bool, bool, u64, u32), libwallet::Error> {
 		todo!()
 	}
 

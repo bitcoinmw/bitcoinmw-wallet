@@ -333,7 +333,7 @@ checksum = "0aaf87b776808e26ae93289bc7d025092b6d909c193f0cdee0b3a86e7bd3c776"
 [[package]]
 name = "bitcoinmw_loader"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#7db471fc5072c846c6240da6c18daee430cb8d1e"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
 dependencies = [
  "bech32",
  "bitcoin_hashes",
@@ -1337,7 +1337,7 @@ checksum = "9b919933a397b79c37e33b77bb2aa3dc8eb6e165ad809e58ff75bc7db2e34574"
 [[package]]
 name = "grin_api"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#7db471fc5072c846c6240da6c18daee430cb8d1e"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
 dependencies = [
  "bitcoinmw_loader",
  "bytes 0.5.6",
@@ -1371,9 +1371,10 @@ dependencies = [
 [[package]]
 name = "grin_chain"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#7db471fc5072c846c6240da6c18daee430cb8d1e"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
 dependencies = [
  "bit-vec",
+ "bitcoinmw_loader",
  "bitflags 1.2.1",
  "byteorder",
  "chrono",
@@ -1395,7 +1396,7 @@ dependencies = [
 [[package]]
 name = "grin_core"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#7db471fc5072c846c6240da6c18daee430cb8d1e"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
 dependencies = [
  "bitcoin 0.26.0 (git+https://github.com/bitcoinmw/rust-bitcoin)",
  "blake2-rfc",
@@ -1423,7 +1424,7 @@ dependencies = [
 [[package]]
 name = "grin_keychain"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#7db471fc5072c846c6240da6c18daee430cb8d1e"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
 dependencies = [
  "blake2-rfc",
  "byteorder",
@@ -1445,7 +1446,7 @@ dependencies = [
 [[package]]
 name = "grin_p2p"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#7db471fc5072c846c6240da6c18daee430cb8d1e"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
 dependencies = [
  "bitflags 1.2.1",
  "bytes 0.5.6",
@@ -1467,7 +1468,7 @@ dependencies = [
 [[package]]
 name = "grin_pool"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#7db471fc5072c846c6240da6c18daee430cb8d1e"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
 dependencies = [
  "blake2-rfc",
  "chrono",
@@ -1500,7 +1501,7 @@ dependencies = [
 [[package]]
 name = "grin_store"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#7db471fc5072c846c6240da6c18daee430cb8d1e"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
 dependencies = [
  "byteorder",
  "croaring-mw",
@@ -1520,7 +1521,7 @@ dependencies = [
 [[package]]
 name = "grin_util"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#7db471fc5072c846c6240da6c18daee430cb8d1e"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
 dependencies = [
  "backtrace",
  "base64 0.12.3",
@@ -3859,9 +3860,9 @@ dependencies = [
 
 [[package]]
 name = "thread_local"
-version = "1.1.2"
+version = "1.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d8208a331e1cb318dd5bd76951d2b8fc48ca38a69f5f4e4af1b6a9f8c6236915"
+checksum = "8018d24e04c95ac8790716a5987d0fec4f8b27249ffa0f7d33f1369bdfb88cbd"
 dependencies = [
  "once_cell",
 ]
@@ -3998,9 +3999,9 @@ checksum = "360dfd1d6d30e05fda32ace2c8c70e9c0a9da713275777f5a4dbb8a1893930c6"
 
 [[package]]
 name = "tracing"
-version = "0.1.22"
+version = "0.1.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9f47026cdc4080c07e49b37087de021820269d996f581aac150ef9e5583eefe3"
+checksum = "f7d40a22fd029e33300d8d89a5cc8ffce18bb7c587662f54629e94c9de5487f3"
 dependencies = [
  "cfg-if 1.0.0",
  "log",
