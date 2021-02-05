@@ -957,11 +957,11 @@ where
 		}
 	};
 
-	if !status.0 {
+	if !status.1 {
 		return Err(ErrorKind::BTCAddressInvalid.into());
 	}
 
-	if !status.1 {
+	if !status.0 {
 		return Err(ErrorKind::BTCAddressAlreadyClaimed.into());
 	}
 

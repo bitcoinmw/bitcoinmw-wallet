@@ -333,7 +333,7 @@ checksum = "0aaf87b776808e26ae93289bc7d025092b6d909c193f0cdee0b3a86e7bd3c776"
 [[package]]
 name = "bitcoinmw_loader"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#2e8f23b4e7f3723d99f17fe666e660cfb18587c7"
 dependencies = [
  "bech32",
  "bitcoin_hashes",
@@ -1337,7 +1337,7 @@ checksum = "9b919933a397b79c37e33b77bb2aa3dc8eb6e165ad809e58ff75bc7db2e34574"
 [[package]]
 name = "grin_api"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#2e8f23b4e7f3723d99f17fe666e660cfb18587c7"
 dependencies = [
  "bitcoinmw_loader",
  "bytes 0.5.6",
@@ -1371,7 +1371,7 @@ dependencies = [
 [[package]]
 name = "grin_chain"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#2e8f23b4e7f3723d99f17fe666e660cfb18587c7"
 dependencies = [
  "bit-vec",
  "bitcoinmw_loader",
@@ -1396,7 +1396,7 @@ dependencies = [
 [[package]]
 name = "grin_core"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#2e8f23b4e7f3723d99f17fe666e660cfb18587c7"
 dependencies = [
  "bitcoin 0.26.0 (git+https://github.com/bitcoinmw/rust-bitcoin)",
  "blake2-rfc",
@@ -1424,7 +1424,7 @@ dependencies = [
 [[package]]
 name = "grin_keychain"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#2e8f23b4e7f3723d99f17fe666e660cfb18587c7"
 dependencies = [
  "blake2-rfc",
  "byteorder",
@@ -1446,7 +1446,7 @@ dependencies = [
 [[package]]
 name = "grin_p2p"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#2e8f23b4e7f3723d99f17fe666e660cfb18587c7"
 dependencies = [
  "bitflags 1.2.1",
  "bytes 0.5.6",
@@ -1468,7 +1468,7 @@ dependencies = [
 [[package]]
 name = "grin_pool"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#2e8f23b4e7f3723d99f17fe666e660cfb18587c7"
 dependencies = [
  "blake2-rfc",
  "chrono",
@@ -1501,7 +1501,7 @@ dependencies = [
 [[package]]
 name = "grin_store"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#2e8f23b4e7f3723d99f17fe666e660cfb18587c7"
 dependencies = [
  "byteorder",
  "croaring-mw",
@@ -1521,7 +1521,7 @@ dependencies = [
 [[package]]
 name = "grin_util"
 version = "5.1.0-alpha.1"
-source = "git+https://github.com/bitcoinmw/bitcoinmw#b7c9d9c794f205702bc8a5efe53ddb0c507b640b"
+source = "git+https://github.com/bitcoinmw/bitcoinmw#2e8f23b4e7f3723d99f17fe666e660cfb18587c7"
 dependencies = [
  "backtrace",
  "base64 0.12.3",
@@ -1923,9 +1923,9 @@ dependencies = [
 
 [[package]]
 name = "idna"
-version = "0.2.0"
+version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "02e2673c30ee86b5b96a9cb52ad15718aa1f966f5ab9ad54a8b95d5ca33120a9"
+checksum = "de910d521f7cc3135c4de8db1cb910e0b5ed1dc6f57c381cd07e8e661ce10094"
 dependencies = [
  "matches",
  "unicode-bidi",
