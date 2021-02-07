@@ -132,7 +132,7 @@ fn basic_transaction_api(test_dir: &'static str) -> Result<(), libwallet::Error>
 				.tx_or_err()?
 				.kernels()
 				.first()
-				.map(|k| k.features)
+				.map(|k| k.features.clone())
 				.unwrap(),
 			transaction::KernelFeatures::Plain {
 				fee: 8_580_000.into()

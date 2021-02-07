@@ -661,7 +661,7 @@ impl Slate {
 		// update the tx kernel to reflect the offset excess and sig
 		assert_eq!(final_tx.kernels().len(), 1);
 
-		let mut kernel = final_tx.kernels()[0];
+		let mut kernel = final_tx.kernels()[0].clone();
 		kernel.excess = final_excess;
 		kernel.excess_sig = final_sig.clone();
 
