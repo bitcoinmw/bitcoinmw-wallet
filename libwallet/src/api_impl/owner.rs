@@ -983,6 +983,7 @@ where
 		value,
 		index,
 		sig,
+		0,
 	)?;
 
 	let mut tx = Transaction {
@@ -1046,7 +1047,7 @@ where
 			fee, index, amount, ..
 		} => {
 			let btc_sig = recsig;
-			match build_btc_init_kernel_feature(fee, index, amount, btc_sig) {
+			match build_btc_init_kernel_feature(fee, index, amount, btc_sig, signature[0]) {
 				Ok(kf) => kf,
 				Err(_e) => return Err(ErrorKind::BTCSignatureInvalid.into()),
 			}
